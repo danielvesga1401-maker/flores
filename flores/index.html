@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Flores Amarillas 💛</title>
+
+<style>
+  body {
+    margin: 0;
+    background: linear-gradient(#fff5e1, #ffe4a3);
+    overflow: hidden;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+
+  /* Contenedor principal centrado */
+  .message {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    z-index: 10;
+    /* Flexbox para alinear h1 y p perfectamente */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+  }
+
+  h1 {
+    color: #fbc02d;
+    font-size: 32px;
+    margin-bottom: 10px;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
+  }
+
+  p {
+    color: #555;
+    font-size: 17px;
+    max-width: 320px; /* Ajustado para que quepa bien en el corazón */
+    margin: 0;
+    line-height: 1.6;
+    font-weight: 500;
+  }
+
+  /* Partículas del corazón */
+  .flower {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background: #ffeb3b;
+    border-radius: 50%;
+    box-shadow: 0 0 8px #fbc02d;
+    opacity: 0;
+    animation: appear 2s forwards;
+  }
+
+  /* Flores que caen */
+  .fall {
+    position: absolute;
+    font-size: 18px;
+    animation: fall linear infinite;
+    z-index: 5;
+    pointer-events: none;
+  }
+
+  @keyframes appear {
+    from {
+      opacity: 0;
+      transform: scale(0);
+    }
+    to {
+      opacity: 0.8;
+      transform: scale(1);
+    }
+  }
+
+  @keyframes fall {
+    from {
+      transform: translateY(-10vh) rotate(0deg);
+    }
+    to {
+      transform: translateY(110vh) rotate(360deg);
+    }
+  }
+</style>
+</head>
+
+<body>
+
+<div class="message">
+  <h1>🌼 Para mi chata ♡</h1>
+  <p>
+    Hoy 21 de marzo, día de las flores amarillas,  
+    quiero recordarte cuánto te quiero ♡  
+    Me encantan tus ojos, tienen algo que me atrapa  
+    y me hacen sentir en casa ✨  
+    Te quiero mucho, mi chata 🌼
+  </p>
+</div>
+
+<script>
+  // Generación del corazón
+  let total = 600; // Reducido un poco para que no sature la vista
+  for (let i = 0; i < total; i++) {
+    let flower = document.createElement("div");
+    flower.className = "flower";
+
+    let t = Math.random() * Math.PI * 2;
+
+    // Ecuación paramétrica del corazón
+    let x = 16 * Math.pow(Math.sin(t), 3);
+    let y = -(13 * Math.cos(t) - 5 * Math.cos(2*t) - 2 * Math.cos(3*t) - Math.cos(4*t));
+
+    // Escala del corazón (ajustada a 18 para que sea un poco más grande)
+    let posX = x * 18 + window.innerWidth / 2;
+    let posY = y * 18 + window.innerHeight / 2;
+
+    flower.style.left = posX + "px";
+    flower.style.top = posY + "px";
+    flower.style.animationDelay = (Math.random() * 2) + "s";
+
+    document.body.appendChild(flower);
+  }
+
+  // Generación de flores cayendo
+  for(let i = 0; i < 60; i++){
+    let f = document.createElement("div");
+    f.className = "fall";
+    f.innerHTML = "🌼";
+
+    f.style.left = Math.random() * window.innerWidth + "px";
+    f.style.top = "-50px";
+    f.style.animationDuration = (Math.random() * 4 + 4) + "s";
+    f.style.animationDelay = (Math.random() * 5) + "s";
+    f.style.opacity = Math.random() * 0.7 + 0.3;
+
+    document.body.appendChild(f);
+  }
+</script>
+
+</body>
+</html>

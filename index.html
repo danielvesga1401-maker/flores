@@ -6,89 +6,89 @@
 <title>Flores Amarillas 💛</title>
 
 <style>
-  body {
-    margin: 0;
-    background: linear-gradient(#fff5e1, #ffe4a3);
-    overflow: hidden;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-  }
+body {
+  margin: 0;
+  background: linear-gradient(135deg, #fff8e1 0%, #ffe082 50%, #ffca28 100%);
+  overflow: hidden;
+  font-family: 'Segoe UI', sans-serif;
+}
 
-  /* Contenedor principal centrado */
-  .message {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
-    z-index: 10;
-    /* Flexbox para alinear h1 y p perfectamente */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-  }
 
-  h1 {
-    color: #fbc02d;
-    font-size: 32px;
-    margin-bottom: 10px;
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
-  }
+.message {
+  position: absolute;
+  top: 52%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  z-index: 10;
+  width: 90%;
+}
 
-  p {
-    color: #555;
-    font-size: 17px;
-    max-width: 320px; /* Ajustado para que quepa bien en el corazón */
-    margin: 0;
-    line-height: 1.6;
-    font-weight: 500;
-  }
+h1 {
+  color: #fbc02d;
+  font-size: 24px;
+  margin-bottom: 8px;
+}
 
-  /* Partículas del corazón */
-  .flower {
-    position: absolute;
-    width: 6px;
-    height: 6px;
-    background: #ffeb3b;
-    border-radius: 50%;
-    box-shadow: 0 0 8px #fbc02d;
+p {
+  color: #555;
+  font-size: 14px;
+  max-width: 260px;
+  margin: auto;
+  line-height: 1.5;
+}
+
+
+.flower {
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  background: #ffeb3b;
+  border-radius: 50%;
+  box-shadow: 0 0 6px #fbc02d;
+  opacity: 0;
+  animation: appear 2s forwards;
+}
+
+
+.fall {
+  position: absolute;
+  font-size: 16px;
+  animation: fall linear infinite;
+  z-index: 5;
+  pointer-events: none;
+}
+
+
+@keyframes appear {
+  from {
     opacity: 0;
-    animation: appear 2s forwards;
+    transform: scale(0);
   }
+  to {
+    opacity: 0.9;
+    transform: scale(1);
+  }
+}
 
-  /* Flores que caen */
-  .fall {
-    position: absolute;
-    font-size: 18px;
-    animation: fall linear infinite;
-    z-index: 5;
-    pointer-events: none;
+@keyframes fall {
+  from {
+    transform: translateY(-10vh) rotate(0deg);
   }
+  to {
+    transform: translateY(110vh) rotate(360deg);
+  }
+}
 
-  @keyframes appear {
-    from {
-      opacity: 0;
-      transform: scale(0);
-    }
-    to {
-      opacity: 0.8;
-      transform: scale(1);
-    }
-  }
 
-  @keyframes fall {
-    from {
-      transform: translateY(-10vh) rotate(0deg);
-    }
-    to {
-      transform: translateY(110vh) rotate(360deg);
-    }
+@media (max-width: 480px){
+  h1{
+    font-size:20px;
   }
+  p{
+    font-size:13px;
+  }
+}
 </style>
 </head>
 
@@ -106,43 +106,45 @@
 </div>
 
 <script>
-  // Generación del corazón
-  let total = 600; // Reducido un poco para que no sature la vista
-  for (let i = 0; i < total; i++) {
-    let flower = document.createElement("div");
-    flower.className = "flower";
 
-    let t = Math.random() * Math.PI * 2;
+let scale = Math.min(window.innerWidth, window.innerHeight) / 25;
 
-    // Ecuación paramétrica del corazón
-    let x = 16 * Math.pow(Math.sin(t), 3);
-    let y = -(13 * Math.cos(t) - 5 * Math.cos(2*t) - 2 * Math.cos(3*t) - Math.cos(4*t));
 
-    // Escala del corazón (ajustada a 18 para que sea un poco más grande)
-    let posX = x * 18 + window.innerWidth / 2;
-    let posY = y * 18 + window.innerHeight / 2;
+let total = 500;
 
-    flower.style.left = posX + "px";
-    flower.style.top = posY + "px";
-    flower.style.animationDelay = (Math.random() * 2) + "s";
+for (let i = 0; i < total; i++) {
+  let flower = document.createElement("div");
+  flower.className = "flower";
 
-    document.body.appendChild(flower);
-  }
+  let t = Math.random() * Math.PI * 2;
 
-  // Generación de flores cayendo
-  for(let i = 0; i < 60; i++){
-    let f = document.createElement("div");
-    f.className = "fall";
-    f.innerHTML = "🌼";
+  let x = 16 * Math.pow(Math.sin(t), 3);
+  let y = -(13 * Math.cos(t) - 5 * Math.cos(2*t) - 2 * Math.cos(3*t) - Math.cos(4*t));
 
-    f.style.left = Math.random() * window.innerWidth + "px";
-    f.style.top = "-50px";
-    f.style.animationDuration = (Math.random() * 4 + 4) + "s";
-    f.style.animationDelay = (Math.random() * 5) + "s";
-    f.style.opacity = Math.random() * 0.7 + 0.3;
+  let posX = x * scale + window.innerWidth / 2;
+  let posY = y * scale + window.innerHeight / 2;
 
-    document.body.appendChild(f);
-  }
+  flower.style.left = posX + "px";
+  flower.style.top = posY + "px";
+  flower.style.animationDelay = (Math.random() * 2) + "s";
+
+  document.body.appendChild(flower);
+}
+
+
+for(let i = 0; i < 50; i++){
+  let f = document.createElement("div");
+  f.className = "fall";
+  f.innerHTML = "🌼";
+
+  f.style.left = Math.random() * window.innerWidth + "px";
+  f.style.top = "-50px";
+  f.style.animationDuration = (Math.random() * 4 + 4) + "s";
+  f.style.animationDelay = (Math.random() * 5) + "s";
+  f.style.opacity = Math.random() * 0.7 + 0.3;
+
+  document.body.appendChild(f);
+}
 </script>
 
 </body>
